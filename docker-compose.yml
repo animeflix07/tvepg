@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: jiotv_bot_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+  bot:
+    build: .
+    container_name: jiotv_bot
+    depends_on:
+      - mongodb
+    environment:
+      BOT_TOKEN: ${BOT_TOKEN}
+      OWNER_ID: ${OWNER_ID}
+      MONGODB_URI: mongodb://root:password@mongodb:27017
+      DB_NAME: jiotv_bot
+      JIOTV_API_URL: ${JIOTV_API_URL}
+    volumes:
+      - ./downloads:/app/downloads
+      - ./temp:/app/temp
+
+volumes:
+  mongo_data:
