@@ -1,0 +1,268 @@
+2025-12-10 09:21:08,243 - __main__ - INFO - Initializing database...
+2025-12-10 09:21:10,621 - database.db - INFO - Database connected successfully
+2025-12-10 09:21:11,363 - database.db - INFO - Created collection: premium
+2025-12-10 09:21:11,864 - database.db - INFO - Created collection: banned
+2025-12-10 09:21:12,380 - database.db - INFO - Created collection: config
+2025-12-10 09:21:12,634 - database.db - ERROR - Failed to initialize database: An existing index has the same name as the requested index. When index names are not specified, they are auto generated and can cause conflicts. Please refer to our documentation. Requested index: { v: 2, unique: true, key: { user_id: 1 }, name: "user_id_1" }, existing index: { v: 2, unique: true, key: { user_id: 1 }, name: "user_id_1", sparse: true }, full error: {'ok': 0.0, 'errmsg': 'An existing index has the same name as the requested index. When index names are not specified, they are auto generated and can cause conflicts. Please refer to our documentation. Requested index: { v: 2, unique: true, key: { user_id: 1 }, name: "user_id_1" }, existing index: { v: 2, unique: true, key: { user_id: 1 }, name: "user_id_1", sparse: true }', 'code': 86, 'codeName': 'IndexKeySpecsConflict', '$clusterTime': {'clusterTime': Timestamp(1765358472, 5), 'signature': {'hash': b'7\x88\x0fh%Z\xe1\x9d \x87\x8f\x8c\xf8\xe2\xfa\x9b\xca\x0e\xdd\x02', 'keyId': 7522209162483204097}}, 'operationTime': Timestamp(1765358472, 5)}
+2025-12-10 09:21:12,634 - __main__ - ERROR - Fatal error: An existing index has the same name as the requested index. When index names are not specified, they are auto generated and can cause conflicts. Please refer to our documentation. Requested index: { v: 2, unique: true, key: { user_id: 1 }, name: "user_id_1" }, existing index: { v: 2, unique: true, key: { user_id: 1 }, name: "user_id_1", sparse: true }, full error: {'ok': 0.0, 'errmsg': 'An existing index has the same name as the requested index. When index names are not specified, they are auto generated and can cause conflicts. Please refer to our documentation. Requested index: { v: 2, unique: true, key: { user_id: 1 }, name: "user_id_1" }, existing index: { v: 2, unique: true, key: { user_id: 1 }, name: "user_id_1", sparse: true }', 'code': 86, 'codeName': 'IndexKeySpecsConflict', '$clusterTime': {'clusterTime': Timestamp(1765358472, 5), 'signature': {'hash': b'7\x88\x0fh%Z\xe1\x9d \x87\x8f\x8c\xf8\xe2\xfa\x9b\xca\x0e\xdd\x02', 'keyId': 7522209162483204097}}, 'operationTime': Timestamp(1765358472, 5)}
+Traceback (most recent call last):
+  File "/app/app.py", line 48, in main
+    await init_db()
+  File "/app/database/db.py", line 242, in init_db
+    await Database.init_db()
+  File "/app/database/db.py", line 33, in init_db
+    await Database.db.users.create_index("user_id", unique=True)
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/collection.py", line 2136, in create_index
+    return self.__create_indexes([index], session, **cmd_options)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/_csot.py", line 107, in csot_wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/collection.py", line 2009, in __create_indexes
+    self._command(
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/collection.py", line 308, in _command
+    return conn.command(
+           ^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/helpers.py", line 322, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/pool.py", line 968, in command
+    return command(
+           ^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/network.py", line 192, in command
+    helpers._check_command_response(
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/helpers.py", line 230, in _check_command_response
+    raise OperationFailure(errmsg, code, response, max_wire_version)
+pymongo.errors.OperationFailure: An existing index has the same name as the requested index. When index names are not specified, they are auto generated and can cause conflicts. Please refer to our documentation. Requested index: { v: 2, unique: true, key: { user_id: 1 }, name: "user_id_1" }, existing index: { v: 2, unique: true, key: { user_id: 1 }, name: "user_id_1", sparse: true }, full error: {'ok': 0.0, 'errmsg': 'An existing index has the same name as the requested index. When index names are not specified, they are auto generated and can cause conflicts. Please refer to our documentation. Requested index: { v: 2, unique: true, key: { user_id: 1 }, name: "user_id_1" }, existing index: { v: 2, unique: true, key: { user_id: 1 }, name: "user_id_1", sparse: true }', 'code': 86, 'codeName': 'IndexKeySpecsConflict', '$clusterTime': {'clusterTime': Timestamp(1765358472, 5), 'signature': {'hash': b'7\x88\x0fh%Z\xe1\x9d \x87\x8f\x8c\xf8\xe2\xfa\x9b\xca\x0e\xdd\x02', 'keyId': 7522209162483204097}}, 'operationTime': Timestamp(1765358472, 5)}
+2025-12-10 09:21:12,638 - __main__ - ERROR - Error closing bot session: cannot access local variable 'bot' where it is not associated with a value
+2025-12-10 09:21:12,639 - __main__ - ERROR - Failed to start bot: An existing index has the same name as the requested index. When index names are not specified, they are auto generated and can cause conflicts. Please refer to our documentation. Requested index: { v: 2, unique: true, key: { user_id: 1 }, name: "user_id_1" }, existing index: { v: 2, unique: true, key: { user_id: 1 }, name: "user_id_1", sparse: true }, full error: {'ok': 0.0, 'errmsg': 'An existing index has the same name as the requested index. When index names are not specified, they are auto generated and can cause conflicts. Please refer to our documentation. Requested index: { v: 2, unique: true, key: { user_id: 1 }, name: "user_id_1" }, existing index: { v: 2, unique: true, key: { user_id: 1 }, name: "user_id_1", sparse: true }', 'code': 86, 'codeName': 'IndexKeySpecsConflict', '$clusterTime': {'clusterTime': Timestamp(1765358472, 5), 'signature': {'hash': b'7\x88\x0fh%Z\xe1\x9d \x87\x8f\x8c\xf8\xe2\xfa\x9b\xca\x0e\xdd\x02', 'keyId': 7522209162483204097}}, 'operationTime': Timestamp(1765358472, 5)}
+Traceback (most recent call last):
+  File "/app/app.py", line 102, in <module>
+    asyncio.run(main())
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/app/app.py", line 48, in main
+    await init_db()
+  File "/app/database/db.py", line 242, in init_db
+    await Database.init_db()
+  File "/app/database/db.py", line 33, in init_db
+    await Database.db.users.create_index("user_id", unique=True)
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/collection.py", line 2136, in create_index
+    return self.__create_indexes([index], session, **cmd_options)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/_csot.py", line 107, in csot_wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/collection.py", line 2009, in __create_indexes
+    self._command(
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/collection.py", line 308, in _command
+    return conn.command(
+           ^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/helpers.py", line 322, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/pool.py", line 968, in command
+    return command(
+           ^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/network.py", line 192, in command
+    helpers._check_command_response(
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/helpers.py", line 230, in _check_command_response
+    raise OperationFailure(errmsg, code, response, max_wire_version)
+pymongo.errors.OperationFailure: An existing index has the same name as the requested index. When index names are not specified, they are auto generated and can cause conflicts. Please refer to our documentation. Requested index: { v: 2, unique: true, key: { user_id: 1 }, name: "user_id_1" }, existing index: { v: 2, unique: true, key: { user_id: 1 }, name: "user_id_1", sparse: true }, full error: {'ok': 0.0, 'errmsg': 'An existing index has the same name as the requested index. When index names are not specified, they are auto generated and can cause conflicts. Please refer to our documentation. Requested index: { v: 2, unique: true, key: { user_id: 1 }, name: "user_id_1" }, existing index: { v: 2, unique: true, key: { user_id: 1 }, name: "user_id_1", sparse: true }', 'code': 86, 'codeName': 'IndexKeySpecsConflict', '$clusterTime': {'clusterTime': Timestamp(1765358472, 5), 'signature': {'hash': b'7\x88\x0fh%Z\xe1\x9d \x87\x8f\x8c\xf8\xe2\xfa\x9b\xca\x0e\xdd\x02', 'keyId': 7522209162483204097}}, 'operationTime': Timestamp(1765358472, 5)}
+2025-12-10 09:22:43,636 - __main__ - INFO - Initializing database...
+2025-12-10 09:22:46,003 - database.db - INFO - Database connected successfully
+2025-12-10 09:22:46,802 - database.db - ERROR - Failed to initialize database: Index build failed: d64c5d23-b836-47f1-8dc2-c3e06034ab2f: Collection Cluster0.users ( e1352edd-bcec-4529-bd79-76cc614f6e3d ) :: caused by :: E11000 duplicate key error collection: Cluster0.users index: user_id_1 dup key: { user_id: null }, full error: {'ok': 0.0, 'errmsg': 'Index build failed: d64c5d23-b836-47f1-8dc2-c3e06034ab2f: Collection Cluster0.users ( e1352edd-bcec-4529-bd79-76cc614f6e3d ) :: caused by :: E11000 duplicate key error collection: Cluster0.users index: user_id_1 dup key: { user_id: null }', 'code': 11000, 'codeName': 'DuplicateKey', 'keyPattern': {'user_id': 1}, 'keyValue': {'user_id': None}, '$clusterTime': {'clusterTime': Timestamp(1765358566, 9), 'signature': {'hash': b'\xac!\xf4\xa6\x9a\x18/\xd3\xb2\xae\x98\xdd\xec\xd0V>{\x9ai\xe0', 'keyId': 7522209162483204097}}, 'operationTime': Timestamp(1765358566, 9)}
+2025-12-10 09:22:46,802 - __main__ - ERROR - Fatal error: Index build failed: d64c5d23-b836-47f1-8dc2-c3e06034ab2f: Collection Cluster0.users ( e1352edd-bcec-4529-bd79-76cc614f6e3d ) :: caused by :: E11000 duplicate key error collection: Cluster0.users index: user_id_1 dup key: { user_id: null }, full error: {'ok': 0.0, 'errmsg': 'Index build failed: d64c5d23-b836-47f1-8dc2-c3e06034ab2f: Collection Cluster0.users ( e1352edd-bcec-4529-bd79-76cc614f6e3d ) :: caused by :: E11000 duplicate key error collection: Cluster0.users index: user_id_1 dup key: { user_id: null }', 'code': 11000, 'codeName': 'DuplicateKey', 'keyPattern': {'user_id': 1}, 'keyValue': {'user_id': None}, '$clusterTime': {'clusterTime': Timestamp(1765358566, 9), 'signature': {'hash': b'\xac!\xf4\xa6\x9a\x18/\xd3\xb2\xae\x98\xdd\xec\xd0V>{\x9ai\xe0', 'keyId': 7522209162483204097}}, 'operationTime': Timestamp(1765358566, 9)}
+Traceback (most recent call last):
+  File "/app/app.py", line 48, in main
+    await init_db()
+  File "/app/database/db.py", line 246, in init_db
+    await Database.init_db()
+  File "/app/database/db.py", line 37, in init_db
+    await Database.db.users.create_index("user_id", unique=True)
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/collection.py", line 2136, in create_index
+    return self.__create_indexes([index], session, **cmd_options)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/_csot.py", line 107, in csot_wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/collection.py", line 2009, in __create_indexes
+    self._command(
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/collection.py", line 308, in _command
+    return conn.command(
+           ^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/helpers.py", line 322, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/pool.py", line 968, in command
+    return command(
+           ^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/network.py", line 192, in command
+    helpers._check_command_response(
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/helpers.py", line 224, in _check_command_response
+    raise DuplicateKeyError(errmsg, code, response, max_wire_version)
+pymongo.errors.DuplicateKeyError: Index build failed: d64c5d23-b836-47f1-8dc2-c3e06034ab2f: Collection Cluster0.users ( e1352edd-bcec-4529-bd79-76cc614f6e3d ) :: caused by :: E11000 duplicate key error collection: Cluster0.users index: user_id_1 dup key: { user_id: null }, full error: {'ok': 0.0, 'errmsg': 'Index build failed: d64c5d23-b836-47f1-8dc2-c3e06034ab2f: Collection Cluster0.users ( e1352edd-bcec-4529-bd79-76cc614f6e3d ) :: caused by :: E11000 duplicate key error collection: Cluster0.users index: user_id_1 dup key: { user_id: null }', 'code': 11000, 'codeName': 'DuplicateKey', 'keyPattern': {'user_id': 1}, 'keyValue': {'user_id': None}, '$clusterTime': {'clusterTime': Timestamp(1765358566, 9), 'signature': {'hash': b'\xac!\xf4\xa6\x9a\x18/\xd3\xb2\xae\x98\xdd\xec\xd0V>{\x9ai\xe0', 'keyId': 7522209162483204097}}, 'operationTime': Timestamp(1765358566, 9)}
+2025-12-10 09:22:46,807 - __main__ - ERROR - Error closing bot session: cannot access local variable 'bot' where it is not associated with a value
+2025-12-10 09:22:46,807 - __main__ - ERROR - Failed to start bot: Index build failed: d64c5d23-b836-47f1-8dc2-c3e06034ab2f: Collection Cluster0.users ( e1352edd-bcec-4529-bd79-76cc614f6e3d ) :: caused by :: E11000 duplicate key error collection: Cluster0.users index: user_id_1 dup key: { user_id: null }, full error: {'ok': 0.0, 'errmsg': 'Index build failed: d64c5d23-b836-47f1-8dc2-c3e06034ab2f: Collection Cluster0.users ( e1352edd-bcec-4529-bd79-76cc614f6e3d ) :: caused by :: E11000 duplicate key error collection: Cluster0.users index: user_id_1 dup key: { user_id: null }', 'code': 11000, 'codeName': 'DuplicateKey', 'keyPattern': {'user_id': 1}, 'keyValue': {'user_id': None}, '$clusterTime': {'clusterTime': Timestamp(1765358566, 9), 'signature': {'hash': b'\xac!\xf4\xa6\x9a\x18/\xd3\xb2\xae\x98\xdd\xec\xd0V>{\x9ai\xe0', 'keyId': 7522209162483204097}}, 'operationTime': Timestamp(1765358566, 9)}
+Traceback (most recent call last):
+  File "/app/app.py", line 102, in <module>
+    asyncio.run(main())
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/app/app.py", line 48, in main
+    await init_db()
+  File "/app/database/db.py", line 246, in init_db
+    await Database.init_db()
+  File "/app/database/db.py", line 37, in init_db
+    await Database.db.users.create_index("user_id", unique=True)
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/collection.py", line 2136, in create_index
+    return self.__create_indexes([index], session, **cmd_options)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/_csot.py", line 107, in csot_wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/collection.py", line 2009, in __create_indexes
+    self._command(
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/collection.py", line 308, in _command
+    return conn.command(
+           ^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/helpers.py", line 322, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/pool.py", line 968, in command
+    return command(
+           ^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/network.py", line 192, in command
+    helpers._check_command_response(
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/helpers.py", line 224, in _check_command_response
+    raise DuplicateKeyError(errmsg, code, response, max_wire_version)
+pymongo.errors.DuplicateKeyError: Index build failed: d64c5d23-b836-47f1-8dc2-c3e06034ab2f: Collection Cluster0.users ( e1352edd-bcec-4529-bd79-76cc614f6e3d ) :: caused by :: E11000 duplicate key error collection: Cluster0.users index: user_id_1 dup key: { user_id: null }, full error: {'ok': 0.0, 'errmsg': 'Index build failed: d64c5d23-b836-47f1-8dc2-c3e06034ab2f: Collection Cluster0.users ( e1352edd-bcec-4529-bd79-76cc614f6e3d ) :: caused by :: E11000 duplicate key error collection: Cluster0.users index: user_id_1 dup key: { user_id: null }', 'code': 11000, 'codeName': 'DuplicateKey', 'keyPattern': {'user_id': 1}, 'keyValue': {'user_id': None}, '$clusterTime': {'clusterTime': Timestamp(1765358566, 9), 'signature': {'hash': b'\xac!\xf4\xa6\x9a\x18/\xd3\xb2\xae\x98\xdd\xec\xd0V>{\x9ai\xe0', 'keyId': 7522209162483204097}}, 'operationTime': Timestamp(1765358566, 9)}
+2025-12-10 09:24:31,948 - __main__ - INFO - Initializing database...
+2025-12-10 09:24:34,396 - database.db - INFO - Database connected successfully
+2025-12-10 09:24:36,560 - database.db - ERROR - Failed to initialize database: Index build failed: 664d56ff-2ab8-4e0e-bcf4-8bda95a1dac0: Collection Cluster0.recordings ( 7f7e789b-8fe2-4b38-a754-67d1afa5a82e ) :: caused by :: E11000 duplicate key error collection: Cluster0.recordings index: recording_id_1 dup key: { recording_id: null }, full error: {'ok': 0.0, 'errmsg': 'Index build failed: 664d56ff-2ab8-4e0e-bcf4-8bda95a1dac0: Collection Cluster0.recordings ( 7f7e789b-8fe2-4b38-a754-67d1afa5a82e ) :: caused by :: E11000 duplicate key error collection: Cluster0.recordings index: recording_id_1 dup key: { recording_id: null }', 'code': 11000, 'codeName': 'DuplicateKey', 'keyPattern': {'recording_id': 1}, 'keyValue': {'recording_id': None}, '$clusterTime': {'clusterTime': Timestamp(1765358676, 8), 'signature': {'hash': b'\xce\x15v\xd5@\x9b\xbf\xc8\xe4vp\xcf\x8b\xaa(\x8fY?UP', 'keyId': 7522209162483204097}}, 'operationTime': Timestamp(1765358676, 8)}
+2025-12-10 09:24:36,560 - __main__ - ERROR - Fatal error: Index build failed: 664d56ff-2ab8-4e0e-bcf4-8bda95a1dac0: Collection Cluster0.recordings ( 7f7e789b-8fe2-4b38-a754-67d1afa5a82e ) :: caused by :: E11000 duplicate key error collection: Cluster0.recordings index: recording_id_1 dup key: { recording_id: null }, full error: {'ok': 0.0, 'errmsg': 'Index build failed: 664d56ff-2ab8-4e0e-bcf4-8bda95a1dac0: Collection Cluster0.recordings ( 7f7e789b-8fe2-4b38-a754-67d1afa5a82e ) :: caused by :: E11000 duplicate key error collection: Cluster0.recordings index: recording_id_1 dup key: { recording_id: null }', 'code': 11000, 'codeName': 'DuplicateKey', 'keyPattern': {'recording_id': 1}, 'keyValue': {'recording_id': None}, '$clusterTime': {'clusterTime': Timestamp(1765358676, 8), 'signature': {'hash': b'\xce\x15v\xd5@\x9b\xbf\xc8\xe4vp\xcf\x8b\xaa(\x8fY?UP', 'keyId': 7522209162483204097}}, 'operationTime': Timestamp(1765358676, 8)}
+Traceback (most recent call last):
+  File "/app/app.py", line 48, in main
+    await init_db()
+  File "/app/database/db.py", line 255, in init_db
+    await Database.init_db()
+  File "/app/database/db.py", line 49, in init_db
+    await Database.db.recordings.create_index("recording_id", unique=True)
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/collection.py", line 2136, in create_index
+    return self.__create_indexes([index], session, **cmd_options)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/_csot.py", line 107, in csot_wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/collection.py", line 2009, in __create_indexes
+    self._command(
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/collection.py", line 308, in _command
+    return conn.command(
+           ^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/helpers.py", line 322, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/pool.py", line 968, in command
+    return command(
+           ^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/network.py", line 192, in command
+    helpers._check_command_response(
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/helpers.py", line 224, in _check_command_response
+    raise DuplicateKeyError(errmsg, code, response, max_wire_version)
+pymongo.errors.DuplicateKeyError: Index build failed: 664d56ff-2ab8-4e0e-bcf4-8bda95a1dac0: Collection Cluster0.recordings ( 7f7e789b-8fe2-4b38-a754-67d1afa5a82e ) :: caused by :: E11000 duplicate key error collection: Cluster0.recordings index: recording_id_1 dup key: { recording_id: null }, full error: {'ok': 0.0, 'errmsg': 'Index build failed: 664d56ff-2ab8-4e0e-bcf4-8bda95a1dac0: Collection Cluster0.recordings ( 7f7e789b-8fe2-4b38-a754-67d1afa5a82e ) :: caused by :: E11000 duplicate key error collection: Cluster0.recordings index: recording_id_1 dup key: { recording_id: null }', 'code': 11000, 'codeName': 'DuplicateKey', 'keyPattern': {'recording_id': 1}, 'keyValue': {'recording_id': None}, '$clusterTime': {'clusterTime': Timestamp(1765358676, 8), 'signature': {'hash': b'\xce\x15v\xd5@\x9b\xbf\xc8\xe4vp\xcf\x8b\xaa(\x8fY?UP', 'keyId': 7522209162483204097}}, 'operationTime': Timestamp(1765358676, 8)}
+2025-12-10 09:24:36,564 - __main__ - ERROR - Error closing bot session: cannot access local variable 'bot' where it is not associated with a value
+2025-12-10 09:24:36,564 - __main__ - ERROR - Failed to start bot: Index build failed: 664d56ff-2ab8-4e0e-bcf4-8bda95a1dac0: Collection Cluster0.recordings ( 7f7e789b-8fe2-4b38-a754-67d1afa5a82e ) :: caused by :: E11000 duplicate key error collection: Cluster0.recordings index: recording_id_1 dup key: { recording_id: null }, full error: {'ok': 0.0, 'errmsg': 'Index build failed: 664d56ff-2ab8-4e0e-bcf4-8bda95a1dac0: Collection Cluster0.recordings ( 7f7e789b-8fe2-4b38-a754-67d1afa5a82e ) :: caused by :: E11000 duplicate key error collection: Cluster0.recordings index: recording_id_1 dup key: { recording_id: null }', 'code': 11000, 'codeName': 'DuplicateKey', 'keyPattern': {'recording_id': 1}, 'keyValue': {'recording_id': None}, '$clusterTime': {'clusterTime': Timestamp(1765358676, 8), 'signature': {'hash': b'\xce\x15v\xd5@\x9b\xbf\xc8\xe4vp\xcf\x8b\xaa(\x8fY?UP', 'keyId': 7522209162483204097}}, 'operationTime': Timestamp(1765358676, 8)}
+Traceback (most recent call last):
+  File "/app/app.py", line 102, in <module>
+    asyncio.run(main())
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/app/app.py", line 48, in main
+    await init_db()
+  File "/app/database/db.py", line 255, in init_db
+    await Database.init_db()
+  File "/app/database/db.py", line 49, in init_db
+    await Database.db.recordings.create_index("recording_id", unique=True)
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/collection.py", line 2136, in create_index
+    return self.__create_indexes([index], session, **cmd_options)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/_csot.py", line 107, in csot_wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/collection.py", line 2009, in __create_indexes
+    self._command(
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/collection.py", line 308, in _command
+    return conn.command(
+           ^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/helpers.py", line 322, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/pool.py", line 968, in command
+    return command(
+           ^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/network.py", line 192, in command
+    helpers._check_command_response(
+  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pymongo/helpers.py", line 224, in _check_command_response
+    raise DuplicateKeyError(errmsg, code, response, max_wire_version)
+pymongo.errors.DuplicateKeyError: Index build failed: 664d56ff-2ab8-4e0e-bcf4-8bda95a1dac0: Collection Cluster0.recordings ( 7f7e789b-8fe2-4b38-a754-67d1afa5a82e ) :: caused by :: E11000 duplicate key error collection: Cluster0.recordings index: recording_id_1 dup key: { recording_id: null }, full error: {'ok': 0.0, 'errmsg': 'Index build failed: 664d56ff-2ab8-4e0e-bcf4-8bda95a1dac0: Collection Cluster0.recordings ( 7f7e789b-8fe2-4b38-a754-67d1afa5a82e ) :: caused by :: E11000 duplicate key error collection: Cluster0.recordings index: recording_id_1 dup key: { recording_id: null }', 'code': 11000, 'codeName': 'DuplicateKey', 'keyPattern': {'recording_id': 1}, 'keyValue': {'recording_id': None}, '$clusterTime': {'clusterTime': Timestamp(1765358676, 8), 'signature': {'hash': b'\xce\x15v\xd5@\x9b\xbf\xc8\xe4vp\xcf\x8b\xaa(\x8fY?UP', 'keyId': 7522209162483204097}}, 'operationTime': Timestamp(1765358676, 8)}
+2025-12-10 09:26:26,340 - __main__ - INFO - Initializing database...
+2025-12-10 09:26:28,644 - database.db - INFO - Database connected successfully
+2025-12-10 09:26:31,336 - database.db - INFO - Database initialized successfully with all indexes
+2025-12-10 09:26:31,336 - __main__ - INFO - Database initialized successfully
+2025-12-10 09:26:31,337 - __main__ - INFO - Creating bot instance...
+2025-12-10 09:26:35,226 - __main__ - INFO - Bot connected successfully: @JioTV_07_Bot
+2025-12-10 09:26:35,227 - __main__ - INFO - Registering middlewares...
+2025-12-10 09:26:35,227 - __main__ - INFO - Registering routers...
+2025-12-10 09:26:35,228 - __main__ - INFO - Starting bot polling...
+2025-12-10 09:26:35,229 - aiogram.dispatcher - INFO - Start polling
+2025-12-10 09:26:35,349 - aiogram.dispatcher - INFO - Run polling for bot @JioTV_07_Bot id=8516486280 - 'JioTV'
+2025-12-10 09:33:36,560 - __main__ - INFO - Initializing database...
+2025-12-10 09:33:39,095 - database.db - INFO - Database connected successfully
+2025-12-10 09:33:41,482 - database.db - INFO - Database initialized successfully with all indexes
+2025-12-10 09:33:41,482 - __main__ - INFO - Database initialized successfully
+2025-12-10 09:33:41,482 - __main__ - INFO - Creating bot instance...
+2025-12-10 09:33:42,293 - __main__ - INFO - Bot connected successfully: @JioTV_07_Bot
+2025-12-10 09:33:42,294 - __main__ - INFO - Registering middlewares...
+2025-12-10 09:33:42,294 - __main__ - INFO - Registering routers...
+2025-12-10 09:33:42,295 - __main__ - INFO - Starting bot polling...
+2025-12-10 09:33:42,296 - aiogram.dispatcher - INFO - Start polling
+2025-12-10 09:33:42,415 - aiogram.dispatcher - INFO - Run polling for bot @JioTV_07_Bot id=8516486280 - 'JioTV'
